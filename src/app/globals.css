@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-cream: #F6F1EA;
+  --color-offwhite: #FFFDF9;
+  --color-beige: #D8CEC2;
+  --color-taupe: #A89C8E;
+  --color-gold: #B89B67;
+  --color-charcoal: #171514;
+  --color-softblack: #0F0F0F;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+body {
+  background-color: var(--color-offwhite);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+}

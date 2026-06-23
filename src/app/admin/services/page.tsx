@@ -129,23 +129,27 @@ export default function ServicesPage() {
       is_active: editing.is_active,
     };
 
-    let saveError: unknown = null;
+    let saveErr: unknown = null;
     if (editingId) {
       const { error } = await supabase
         .from("services")
         .update(payload)
-        .eq("id", editingId);
-      saveError = error;
+        .eq("id", editingId)
+        .select()
+        .single();
+      saveErr = error;
     } else {
       const { error } = await supabase
         .from("services")
-        .insert(payload);
-      saveError = error;
+        .insert(payload)
+        .select()
+        .single();
+      saveErr = error;
     }
 
     setSaving(false);
-    if (saveError) {
-      setError(String(saveError));
+    if (saveErr) {
+      setError(String(saveErr));
     } else {
       setEditing(null);
       setEditingId(null);

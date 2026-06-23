@@ -43,23 +43,22 @@ export default async function ServicesPage() {
               const categories = svc.categories as string[] | undefined;
               return (
                 <div
-                  key={service.id}
+                  key={`${service.id}-${service.image_url || service.icon}`}
                   id={service.slug}
                   className="group rounded-sm border border-beige/30 bg-cream p-8 transition-all hover:shadow-lg md:p-10"
                 >
                   <div className="flex items-start gap-5">
-                    <div className="mb-5 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-beige/30 text-gold">
-                      {getServiceIcon(service.icon ?? "palette")}
-                    </div>
-                    {service.image_url && (
-                      <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
+                    <div className="mb-5 flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-beige/30 text-gold">
+                      {service.image_url ? (
                         <img
                           src={service.image_url}
                           alt={service.title}
                           className="h-full w-full object-cover"
                         />
-                      </div>
-                    )}
+                      ) : (
+                        getServiceIcon(service.icon ?? "palette")
+                      )}
+                    </div>
                   </div>
                   <div className="flex items-start justify-between gap-4">
                     <h2 className="font-heading text-2xl font-semibold text-charcoal">

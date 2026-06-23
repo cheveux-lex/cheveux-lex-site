@@ -15,7 +15,7 @@ export default function FeaturedServices({ services }: Props) {
         <div className="grid gap-5 md:grid-cols-3">
           {displayed.map((service) => (
             <div
-              key={service.id}
+              key={`${service.id}-${service.image_url || service.icon}`}
               className="group relative overflow-hidden rounded-sm bg-cream p-6 transition-all hover:shadow-lg"
             >
               <div
@@ -51,8 +51,16 @@ export default function FeaturedServices({ services }: Props) {
               />
 
               <div className="relative flex items-start gap-4">
-                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-beige/30 text-gold">
-                  {getServiceIcon(service.icon ?? "palette")}
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-beige/30 text-gold">
+                  {service.image_url ? (
+                    <img
+                      src={service.image_url}
+                      alt={service.title}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    getServiceIcon(service.icon ?? "palette")
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <h3 className="font-heading text-lg font-semibold text-charcoal">

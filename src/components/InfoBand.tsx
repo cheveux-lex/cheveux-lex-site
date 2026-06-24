@@ -143,22 +143,32 @@ export default function InfoBand({ settings = defaultSettings }: Props) {
               </a>
             </div>
             <div className="mt-4 relative aspect-[4/3] w-full overflow-hidden rounded-sm">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #D8CEC2 0%, #C4B6A6 20%, #B89B67 45%, #C4B6A6 70%, #D8CEC2 100%)",
-                }}
-              />
-              <div
-                className="absolute inset-0 opacity-[0.12]"
-                style={{
-                  backgroundImage: `
-                    repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px),
-                    repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px)
-                  `,
-                }}
-              />
+              {settings.map_image_url ? (
+                <img
+                  src={settings.map_image_url}
+                  alt="Salon location"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <>
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #D8CEC2 0%, #C4B6A6 20%, #B89B67 45%, #C4B6A6 70%, #D8CEC2 100%)",
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0 opacity-[0.12]"
+                    style={{
+                      backgroundImage: `
+                        repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px),
+                        repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px)
+                      `,
+                    }}
+                  />
+                </>
+              )}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                 <svg
                   width="24"

@@ -64,16 +64,16 @@ export default function Hero({ settings = defaultSettings }: Props) {
           <div
             className="mt-5 inline-block max-w-md"
             style={{
-              background: "rgba(246, 241, 234, 0.72)",
+              background: "linear-gradient(90deg, rgba(246,241,234,0.62) 0%, rgba(246,241,234,0.42) 55%, rgba(246,241,234,0.12) 100%)",
               backdropFilter: "blur(6px)",
               WebkitBackdropFilter: "blur(6px)",
-              border: "1px solid rgba(190, 158, 103, 0.18)",
-              borderRadius: "14px",
-              padding: "12px 16px",
-              boxShadow: "0 10px 30px rgba(21, 18, 15, 0.08)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderRadius: "10px",
+              padding: "10px 14px",
+              boxShadow: "0 6px 18px rgba(21,18,15,0.04)",
             }}
           >
-            <p className="text-sm leading-snug font-semibold md:text-base" style={{ color: "#15120F" }}>
+            <p className="text-sm leading-[1.55] font-medium md:text-base" style={{ color: "#1A1714" }}>
               {settings.description}
             </p>
           </div>

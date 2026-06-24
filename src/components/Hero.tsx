@@ -41,15 +41,24 @@ export default function Hero({ settings = defaultSettings }: Props) {
         />
       )}
 
-      {/* Warm overlay for text readability */}
+      {/* Soft editorial gradient veil for readability */}
       <div
         className="absolute inset-0"
         style={{
           background: hasImage
-            ? "linear-gradient(135deg, rgba(248,244,240,0.88) 0%, rgba(248,244,240,0.45) 50%, rgba(248,244,240,0.1) 100%)"
+            ? "linear-gradient(90deg, rgba(246,241,234,0.78) 0%, rgba(246,241,234,0.48) 42%, rgba(246,241,234,0.12) 72%, rgba(246,241,234,0) 100%)"
             : "none",
         }}
       />
+      {/* Stronger veil on mobile */}
+      {hasImage && (
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background: "linear-gradient(90deg, rgba(246,241,234,0.82) 0%, rgba(246,241,234,0.55) 50%, rgba(246,241,234,0.2) 100%)",
+          }}
+        />
+      )}
 
       {/* Content on top */}
       <div className="relative mx-auto flex min-h-[460px] max-w-7xl flex-col justify-center px-5 py-14 md:px-8 lg:px-12">
@@ -61,22 +70,9 @@ export default function Hero({ settings = defaultSettings }: Props) {
             {settings.tagline}
           </h1>
           <div className="mt-4 h-px w-16 bg-gold" />
-          <div
-            className="mt-5 inline-block max-w-md"
-            style={{
-              background: "linear-gradient(90deg, rgba(246,241,234,0.62) 0%, rgba(246,241,234,0.42) 55%, rgba(246,241,234,0.12) 100%)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              borderRadius: "10px",
-              padding: "10px 14px",
-              boxShadow: "0 6px 18px rgba(21,18,15,0.04)",
-            }}
-          >
-            <p className="text-sm leading-[1.55] font-medium md:text-base" style={{ color: "#1A1714" }}>
-              {settings.description}
-            </p>
-          </div>
+          <p className="mt-5 max-w-[520px] text-sm leading-[1.55] font-medium md:text-base" style={{ color: "#181410", textShadow: "0 1px 10px rgba(255,255,255,0.35)" }}>
+            {settings.description}
+          </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href={settings.bookingUrl}

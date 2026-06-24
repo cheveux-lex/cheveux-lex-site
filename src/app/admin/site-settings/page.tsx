@@ -23,6 +23,7 @@ interface FormFields {
   salon_image_url: string;
   footer_logo_url: string;
   map_image_url: string;
+  map_embed_url: string;
 }
 
 const INITIAL: FormFields = {
@@ -40,6 +41,7 @@ const INITIAL: FormFields = {
   salon_image_url: "",
   footer_logo_url: "",
   map_image_url: "",
+  map_embed_url: "",
 };
 
 interface MediaField {
@@ -102,6 +104,7 @@ export default function SiteSettingsPage() {
             salon_image_url: data.salon_image_url ?? "",
             footer_logo_url: data.footer_logo_url ?? "",
             map_image_url: data.map_image_url ?? "",
+            map_embed_url: data.map_embed_url ?? "",
           });
         }
         setLoading(false);
@@ -190,6 +193,7 @@ export default function SiteSettingsPage() {
         salon_image_url: (returnedRow.salon_image_url as string) ?? "",
         footer_logo_url: (returnedRow.footer_logo_url as string) ?? "",
         map_image_url: (returnedRow.map_image_url as string) ?? "",
+        map_embed_url: (returnedRow.map_embed_url as string) ?? "",
       });
       setSuccess(true);
     } else {
@@ -313,6 +317,12 @@ export default function SiteSettingsPage() {
               value={fields.booking_url}
               onChange={handleChange("booking_url")}
               placeholder="https://linktr.ee/Cheveux_lex"
+            />
+            <AdminInput
+              label="Google Maps Embed URL"
+              value={fields.map_embed_url}
+              onChange={handleChange("map_embed_url")}
+              placeholder="https://www.google.com/maps/embed?pb=..."
             />
             <div className="grid gap-5 sm:grid-cols-3">
               <AdminInput

@@ -18,6 +18,7 @@ export interface SiteSettingsRow {
   salon_image_url: string | null;
   footer_logo_url: string | null;
   map_image_url: string | null;
+  map_embed_url: string | null;
   instagram_url: string;
   tiktok_url: string;
   facebook_url: string;
@@ -75,6 +76,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       salon_image_url: data?.salon_image_url || "",
       footer_logo_url: data?.footer_logo_url || "",
       map_image_url: data?.map_image_url || "",
+      map_embed_url: data?.map_embed_url || "",
       bookingUrl,
       instagram: data?.instagram_url || fallbackSettings.instagram,
       tiktok: data?.tiktok_url || fallbackSettings.tiktok,

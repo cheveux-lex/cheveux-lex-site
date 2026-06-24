@@ -7,7 +7,9 @@ interface Props {
 }
 
 export default function InfoBand({ settings = defaultSettings }: Props) {
-  const mapsUrl = `https://www.google.com/maps/search/${settings.googleMapsQuery}`;
+  const embedUrl = settings.map_embed_url ||
+    `https://www.google.com/maps?q=${settings.googleMapsQuery}&output=embed`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${settings.googleMapsQuery}`;
 
   return (
     <section className="bg-offwhite py-16 md:py-20" id="about">
@@ -143,54 +145,13 @@ export default function InfoBand({ settings = defaultSettings }: Props) {
               </a>
             </div>
             <div className="mt-4 relative aspect-[4/3] w-full overflow-hidden rounded-sm">
-              {settings.map_image_url ? (
-                <img
-                  src={settings.map_image_url}
-                  alt="Salon location"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              ) : (
-                <>
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #D8CEC2 0%, #C4B6A6 20%, #B89B67 45%, #C4B6A6 70%, #D8CEC2 100%)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 opacity-[0.12]"
-                    style={{
-                      backgroundImage: `
-                        repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px),
-                        repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(184, 155, 103, 0.15) 20px, rgba(184, 155, 103, 0.15) 21px)
-                      `,
-                    }}
-                  />
-                </>
-              )}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gold"
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <p className="mt-2 font-heading text-sm font-semibold text-charcoal">
-                  {settings.shortName}
-                </p>
-                <p className="text-[10px] text-taupe">
-                  {settings.addressShort}
-                </p>
-              </div>
+              <iframe
+                src={embedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 h-full w-full border-0"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>

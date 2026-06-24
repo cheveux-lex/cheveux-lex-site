@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();
-  const mapsUrl = `https://www.google.com/maps/search/${settings.googleMapsQuery}`;
+  const embedUrl = settings.map_embed_url ||
+    `https://www.google.com/maps?q=${settings.googleMapsQuery}&output=embed`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${settings.googleMapsQuery}`;
 
   return (
     <>
@@ -122,69 +124,21 @@ export default async function ContactPage() {
             </div>
 
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm">
-              {settings.map_image_url ? (
-                <img
-                  src={settings.map_image_url}
-                  alt="Salon location"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              ) : (
-                <>
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(135deg, #D8CEC2 0%, #C4B6A6 20%, #B89B67 45%, #C4B6A6 70%, #D8CEC2 100%)" }}
-                  />
-                  <div
-                    className="absolute inset-0 opacity-[0.12]"
-                    style={{
-                      backgroundImage: `
-                        repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(184, 155, 103, 0.15) 30px, rgba(184, 155, 103, 0.15) 31px),
-                        repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(184, 155, 103, 0.15) 30px, rgba(184, 155, 103, 0.15) 31px)
-                      `,
-                    }}
-                  />
-                </>
-              )}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gold"
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <p className="mt-4 font-heading text-2xl font-semibold text-charcoal">
-                  {settings.shortName}
-                </p>
-                <p className="mt-2 text-sm text-taupe">{settings.addressShort}</p>
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-sm bg-charcoal px-6 py-2.5 text-xs font-semibold uppercase tracking-widest text-offwhite transition-all hover:bg-charcoal/90"
-                >
-                  Open in Maps
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </a>
-              </div>
+              <iframe
+                src={embedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 h-full w-full border-0"
+                allowFullScreen
+              />
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-sm bg-charcoal/80 px-4 py-2 text-[10px] font-semibold uppercase tracking-widest text-offwhite transition-all hover:bg-charcoal"
+              >
+                Open in Maps
+              </a>
             </div>
           </div>
 

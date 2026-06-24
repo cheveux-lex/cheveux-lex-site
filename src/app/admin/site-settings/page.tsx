@@ -22,6 +22,7 @@ interface FormFields {
   hero_image_url: string;
   salon_image_url: string;
   footer_logo_url: string;
+  map_image_url: string;
 }
 
 const INITIAL: FormFields = {
@@ -38,6 +39,7 @@ const INITIAL: FormFields = {
   hero_image_url: "",
   salon_image_url: "",
   footer_logo_url: "",
+  map_image_url: "",
 };
 
 interface MediaField {
@@ -51,6 +53,7 @@ const mediaFields: MediaField[] = [
   { key: "hero_image_url", label: "Hero Image", folder: "hero" },
   { key: "salon_image_url", label: "Salon Image", folder: "salon" },
   { key: "footer_logo_url", label: "Footer Logo", folder: "footer" },
+  { key: "map_image_url", label: "Map / Location Image", folder: "site" },
 ];
 
 export default function SiteSettingsPage() {
@@ -84,6 +87,7 @@ export default function SiteSettingsPage() {
             hero_image_url: data.hero_image_url ?? "",
             salon_image_url: data.salon_image_url ?? "",
             footer_logo_url: data.footer_logo_url ?? "",
+            map_image_url: data.map_image_url ?? "",
           });
         }
         setLoading(false);
@@ -171,6 +175,7 @@ export default function SiteSettingsPage() {
         hero_image_url: (returnedRow.hero_image_url as string) ?? "",
         salon_image_url: (returnedRow.salon_image_url as string) ?? "",
         footer_logo_url: (returnedRow.footer_logo_url as string) ?? "",
+        map_image_url: (returnedRow.map_image_url as string) ?? "",
       });
       setSuccess(true);
     } else {

@@ -14,6 +14,7 @@ export const siteSettings = {
   hero_image_url: "",
   salon_image_url: "",
   footer_logo_url: "",
+  map_image_url: "",
   instagram: "https://instagram.com/cheveuxlex",
   instagramHandle: "@cheveuxlex",
   googleMapsQuery: "393+Waller+Ave+Suite+115+Lexington+KY",

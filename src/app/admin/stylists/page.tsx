@@ -9,6 +9,20 @@ import AdminButton from "@/components/admin/AdminButton";
 import AdminCard from "@/components/admin/AdminCard";
 import AdminInput from "@/components/admin/AdminInput";
 
+function getErrorMessage(error: unknown): string {
+  if (!error) return "Something went wrong.";
+  if (typeof error === "string") return error;
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && "message" in error) {
+    return String((error as { message?: unknown }).message);
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return "Something went wrong.";
+  }
+}
+
 const portraitGradients = [
   "radial-gradient(ellipse 130% 70% at 50% 110%, #8B6F47 0%, #B89B67 40%, #C4A882 55%, #B89B67 70%, #8B6F47 85%), radial-gradient(ellipse 80% 30% at 50% 25%, rgba(255,220,180,0.2) 0%, transparent 50%)",
   "radial-gradient(ellipse 130% 70% at 50% 110%, #6B5B45 0%, #A0845A 35%, #C4A882 50%, #A0845A 65%, #6B5B45 80%), radial-gradient(ellipse 80% 30% at 50% 25%, rgba(255,210,170,0.15) 0%, transparent 50%)",
@@ -110,7 +124,7 @@ export default function AdminStylistsPage() {
       const url = await uploadSiteAsset(file, "stylists");
       setEditing({ ...editing, image_url: url });
     } catch (err) {
-      setError(err instanceof MediaUploadError ? err.message : "Upload failed.");
+      setError(err instanceof MediaUploadError ? err.message : getErrorMessage(err));
     } finally {
       setUploadingImage(false);
     }
@@ -151,7 +165,7 @@ export default function AdminStylistsPage() {
 
     setSaving(false);
     if (saveError) {
-      setError(String(saveError));
+      setError(getErrorMessage(saveError));
     } else {
       setEditing(null);
       setEditingId(null);

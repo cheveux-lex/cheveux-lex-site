@@ -48,6 +48,20 @@ interface MediaField {
   folder: string;
 }
 
+function getErrorMessage(error: unknown): string {
+  if (!error) return "Something went wrong.";
+  if (typeof error === "string") return error;
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && "message" in error) {
+    return String((error as { message?: unknown }).message);
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return "Something went wrong.";
+  }
+}
+
 const mediaFields: MediaField[] = [
   { key: "logo_url", label: "Logo", folder: "logo" },
   { key: "hero_image_url", label: "Hero Image", folder: "hero" },
@@ -108,7 +122,7 @@ export default function SiteSettingsPage() {
       const url = await uploadSiteAsset(file, field.folder);
       setFields((prev) => ({ ...prev, [field.key]: url }));
     } catch (err) {
-      setError(err instanceof MediaUploadError ? err.message : "Upload failed.");
+      setError(err instanceof MediaUploadError ? err.message : getErrorMessage(err));
     } finally {
       setUploading(null);
     }
@@ -159,7 +173,7 @@ export default function SiteSettingsPage() {
     }
     setSaving(false);
     if (saveErr) {
-      setError(String(saveErr));
+      setError(getErrorMessage(saveErr));
     } else if (returnedRow) {
       setFields({
         hero_title: (returnedRow.hero_title as string) ?? "",

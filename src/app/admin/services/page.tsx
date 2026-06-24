@@ -11,6 +11,20 @@ import AdminCard from "@/components/admin/AdminCard";
 import AdminInput from "@/components/admin/AdminInput";
 import AdminTable from "@/components/admin/AdminTable";
 
+function getErrorMessage(error: unknown): string {
+  if (!error) return "Something went wrong.";
+  if (typeof error === "string") return error;
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && "message" in error) {
+    return String((error as { message?: unknown }).message);
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return "Something went wrong.";
+  }
+}
+
 const iconOptions = Object.keys(serviceIcons);
 
 interface FormData {
@@ -149,7 +163,7 @@ export default function ServicesPage() {
 
     setSaving(false);
     if (saveErr) {
-      setError(String(saveErr));
+      setError(getErrorMessage(saveErr));
     } else {
       setEditing(null);
       setEditingId(null);

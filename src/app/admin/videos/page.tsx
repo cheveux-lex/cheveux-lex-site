@@ -31,6 +31,20 @@ const EMPTY_FORM: FormData = {
   is_featured: false,
 };
 
+function getErrorMessage(error: unknown): string {
+  if (!error) return "Something went wrong.";
+  if (typeof error === "string") return error;
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && "message" in error) {
+    return String((error as { message?: unknown }).message);
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return "Something went wrong.";
+  }
+}
+
 const platformOptions = ["external", "youtube", "vimeo", "tiktok", "instagram"];
 const categoryOptions = ["Salon", "Color", "Blonde", "Brunette", "Extensions", "Lashes", "Styling", "Tutorial"];
 
@@ -116,7 +130,7 @@ export default function AdminVideosPage() {
         setEditing({ ...editing, thumbnail_url: url });
       }
     } catch (err) {
-      setError(err instanceof MediaUploadError ? err.message : "Thumbnail upload failed.");
+      setError(err instanceof MediaUploadError ? err.message : getErrorMessage(err));
     } finally {
       setUploadingThumbnail(false);
     }
@@ -154,7 +168,7 @@ export default function AdminVideosPage() {
 
     setSaving(false);
     if (saveError) {
-      setError(String(saveError));
+      setError(getErrorMessage(saveError));
     } else {
       setEditing(null);
       setEditingId(null);

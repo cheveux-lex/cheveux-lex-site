@@ -61,9 +61,22 @@ export default function Hero({ settings = defaultSettings }: Props) {
             {settings.tagline}
           </h1>
           <div className="mt-4 h-px w-16 bg-gold" />
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-taupe md:text-base">
-            {settings.description}
-          </p>
+          <div
+            className="mt-5 inline-block max-w-md"
+            style={{
+              background: "rgba(246, 241, 234, 0.72)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              border: "1px solid rgba(190, 158, 103, 0.18)",
+              borderRadius: "14px",
+              padding: "12px 16px",
+              boxShadow: "0 10px 30px rgba(21, 18, 15, 0.08)",
+            }}
+          >
+            <p className="text-sm leading-snug font-semibold md:text-base" style={{ color: "#15120F" }}>
+              {settings.description}
+            </p>
+          </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href={settings.bookingUrl}

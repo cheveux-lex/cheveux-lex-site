@@ -8,6 +8,7 @@ import { getActiveStylists } from "@/lib/supabase/stylists";
 import { getFeaturedGalleryItems } from "@/lib/supabase/gallery-server";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function HomePage() {
   const [settings, services, stylists, galleryItems] = await Promise.all([

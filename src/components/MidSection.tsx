@@ -74,6 +74,13 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                       background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
                     }}
                   />
+                  {item.image_url ? (
+                    <img
+                      src={item.image_url as string}
+                      alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : null}
                   <div
                     className="absolute inset-0 opacity-20"
                     style={{
@@ -108,6 +115,13 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                       background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
                     }}
                   />
+                  {item.image_url ? (
+                    <img
+                      src={item.image_url as string}
+                      alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : null}
                   <div
                     className="absolute inset-0 opacity-20"
                     style={{

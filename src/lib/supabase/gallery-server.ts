@@ -39,32 +39,42 @@ export async function getGalleryItems(): Promise<GalleryRow[]> {
 export async function getFeaturedGalleryItems(): Promise<GalleryRow[]> {
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase
+    // Fetch featured items first (up to 6)
+    const { data: featured, error: featuredErr } = await supabase
       .from("gallery_items")
       .select("*")
       .eq("is_featured", true)
-      .order("sort_order", { ascending: true, nullsFirst: false })
-      .order("created_at", { ascending: false });
-    if (error) throw error;
-    if (process.env.NODE_ENV === "development") {
-      console.log(`[gallery] getFeaturedGalleryItems fetched ${data?.length ?? 0} items`);
-    }
-    if (data && data.length > 0) {
-      return data as GalleryRow[];
-    }
-    // No featured items — return latest items instead
-    const supabase2 = await createClient();
-    const { data: latest, error: latestError } = await supabase2
-      .from("gallery_items")
-      .select("*")
+      .not("image_url", "is", null)
       .order("sort_order", { ascending: true, nullsFirst: false })
       .order("created_at", { ascending: false })
-      .limit(5);
-    if (latestError) throw latestError;
-    if (process.env.NODE_ENV === "development") {
-      console.log(`[gallery] fallback to ${latest?.length ?? 0} latest items`);
+      .limit(6);
+    if (featuredErr) throw featuredErr;
+    const featuredItems = (featured ?? []) as GalleryRow[];
+    if (featuredItems.length >= 6) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(`[gallery] getFeaturedGalleryItems fetched ${featuredItems.length} featured items`);
+      }
+      return featuredItems;
     }
-    return (latest ?? []) as GalleryRow[];
+    // Fill remaining slots with non-featured items (avoid duplicates)
+    const featuredIds = featuredItems.map((f) => f.id);
+    const remaining = 6 - featuredItems.length;
+    const { data: nonFeatured, error: nonFeaturedErr } = await supabase
+      .from("gallery_items")
+      .select("*")
+      .not("image_url", "is", null)
+      .order("sort_order", { ascending: true, nullsFirst: false })
+      .order("created_at", { ascending: false })
+      .limit(remaining);
+    if (nonFeaturedErr) throw nonFeaturedErr;
+    const nonFeaturedItems = ((nonFeatured ?? []) as GalleryRow[]).filter(
+      (nf) => !featuredIds.includes(nf.id)
+    );
+    const result = [...featuredItems, ...nonFeaturedItems].slice(0, 6);
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[gallery] getFeaturedGalleryItems returning ${result.length} items (${featuredItems.length} featured, ${nonFeaturedItems.length} non-featured)`);
+    }
+    return result;
   } catch (err) {
     if (process.env.NODE_ENV === "development") {
       console.warn("[gallery] getFeaturedGalleryItems fell back to mock:", err);

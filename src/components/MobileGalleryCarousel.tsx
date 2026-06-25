@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import GalleryLightbox from "@/components/GalleryLightbox";
 
 interface MobileGalleryCarouselProps {
@@ -12,7 +12,15 @@ export default function MobileGalleryCarousel({ items, categoryGradients }: Mobi
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxKey, setLightboxKey] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      console.log("Our Work scroll:", el.scrollWidth, el.clientWidth);
+    }
+  }, []);
 
   const openLightbox = useCallback((index: number) => {
     setLightboxIndex(index);
@@ -46,7 +54,9 @@ export default function MobileGalleryCarousel({ items, categoryGradients }: Mobi
   return (
     <>
       <div
-        className="flex w-full max-w-full gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory px-5 pb-4 [-webkit-overflow-scrolling:touch]"
+        ref={scrollRef}
+        data-our-work-scroll=""
+        className="flex w-full max-w-full gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory px-5 pb-4 [-webkit-overflow-scrolling:touch] our-work-mobile-scroll"
         onPointerDown={handlePointerDown}
         onPointerCancel={clearPointer}
       >
@@ -57,7 +67,7 @@ export default function MobileGalleryCarousel({ items, categoryGradients }: Mobi
             onPointerUp={handlePointerUp(i)}
           >
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0"
               style={{
                 background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
               }}
@@ -71,15 +81,15 @@ export default function MobileGalleryCarousel({ items, categoryGradients }: Mobi
               />
             ) : null}
             <div
-              className="absolute inset-0 opacity-20 pointer-events-none"
+              className="absolute inset-0 opacity-20"
               style={{
                 backgroundImage: `
                   radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%)
                 `,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 pointer-events-none select-none">
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-3 select-none">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-gold">
                 {item.category as string}
               </p>

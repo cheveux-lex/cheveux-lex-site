@@ -17,6 +17,15 @@ html, body {
   width: 100%;
 }
 
+.our-work-mobile-scroll {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: auto;
+}
+
 body {
   background-color: var(--color-offwhite);
   color: var(--color-charcoal);

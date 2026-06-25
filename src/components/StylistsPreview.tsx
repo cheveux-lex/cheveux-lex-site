@@ -19,76 +19,119 @@ export default function StylistsPreview({ stylists: stylistsProp }: Props) {
   const stylists = stylistsProp ?? (fallbackStylists as unknown as StylistRow[]);
 
   return (
-    <section className="bg-offwhite py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 lg:px-12">
-        <div className="mx-auto mb-14 max-w-xl text-center">
+    <section className="w-full max-w-full overflow-hidden bg-offwhite py-20 pb-32 md:py-28">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8 lg:px-12">
+        <div className="mb-12 max-w-xl md:mx-auto md:mb-14 md:text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">
             Our Team
           </span>
-          <h2 className="mt-3 font-heading text-4xl font-light text-charcoal md:text-5xl">
+
+          <h2 className="mt-3 font-heading text-4xl font-light leading-none text-charcoal md:text-5xl">
             Meet Our Stylists
           </h2>
-          <p className="mt-4 text-taupe">
+
+          <div className="mt-5 h-px w-24 bg-gold md:mx-auto" />
+
+          <p className="mt-5 text-taupe">
             Talented artists dedicated to making you look and feel your best.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {stylists.map((stylist) => {
+        <div className="grid w-full max-w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {stylists.map((stylist, index) => {
             const s = stylist as Record<string, unknown>;
+
+            const name = String(s.name ?? "");
+            const role = String(s.role ?? "");
+            const imageUrl =
+              typeof s.image_url === "string"
+                ? s.image_url
+                : typeof s.image === "string"
+                  ? s.image
+                  : "";
+
             const specialties = Array.isArray(s.specialties)
               ? (s.specialties as string[])
               : typeof s.specialty === "string"
                 ? [s.specialty as string]
-                : [];
-            const instagram = (s.instagram as string) || (s.instagram_url as string) || "";
+                : typeof s.bio === "string"
+                  ? [s.bio as string]
+                  : [];
+
+            const instagram =
+              (s.instagram as string) || (s.instagram_url as string) || "";
+
             return (
               <div
-                key={s.id as string}
-                className="group rounded-sm bg-cream p-6 text-center transition-all hover:shadow-lg"
+                key={(s.id as string) || `${name}-${index}`}
+                className="
+                  group mx-auto box-border w-[calc(100vw-56px)] max-w-[calc(100vw-56px)]
+                  -translate-x-3 overflow-hidden rounded-[30px] border border-beige/70
+                  bg-[#FFFCF7] p-5 shadow-[0_10px_28px_rgba(21,18,15,0.06)]
+                  transition-all hover:shadow-lg
+                  md:w-full md:max-w-full md:translate-x-0 md:rounded-sm md:bg-cream md:p-6 md:text-center
+                "
               >
-                <div className="mx-auto mb-5 h-28 w-28 overflow-hidden rounded-full">
-                  <div
-                    className="h-full w-full transition-transform duration-500 group-hover:scale-105"
-                    style={{
-                      background:
-                        stylistGradients[s.name as string] ||
-                        "linear-gradient(135deg, #D8CEC2, #A89C8E)",
-                    }}
-                  />
+                <div className="mb-5 h-28 w-28 overflow-hidden rounded-full md:mx-auto">
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={name}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div
+                      className="h-full w-full transition-transform duration-500 group-hover:scale-105"
+                      style={{
+                        background:
+                          stylistGradients[name] ||
+                          "linear-gradient(135deg, #D8CEC2, #A89C8E)",
+                      }}
+                    />
+                  )}
                 </div>
-                <h3 className="font-heading text-xl font-semibold text-charcoal">
-                  {s.name as string}
-                </h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                  {s.role as string}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-taupe">
-                  {specialties.join(" · ")}
-                </p>
-                <div className="mt-4 flex justify-center">
-                  <a
-                    href={instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-beige text-taupe transition-colors hover:border-gold hover:text-gold"
-                    aria-label={`${s.name as string} on Instagram`}
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  </a>
+
+                <div className="w-full min-w-0">
+                  <h3 className="font-heading text-[34px] font-semibold leading-none text-charcoal md:text-xl md:leading-tight">
+                    {name}
+                  </h3>
+
+                  <p className="mt-3 break-words text-xs font-semibold uppercase tracking-[0.22em] text-gold md:mt-1 md:tracking-[0.2em]">
+                    {role}
+                  </p>
+
+                  {specialties.length > 0 && (
+                    <p className="mt-3 max-w-full break-words text-[17px] leading-relaxed text-taupe md:text-sm">
+                      {specialties.join(" · ")}
+                    </p>
+                  )}
+
+                  {instagram && (
+                    <div className="mt-5 flex md:justify-center">
+                      <a
+                        href={instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-beige text-taupe transition-colors hover:border-gold hover:text-gold md:h-9 md:w-9"
+                        aria-label={`${name} on Instagram`}
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             );

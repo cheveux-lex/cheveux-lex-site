@@ -31,3 +31,26 @@ body {
   color: var(--color-charcoal);
   font-family: var(--font-body);
 }
+
+.mobile-stylist-card-safe {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 767px) {
+  .mobile-stylist-list-safe {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  .mobile-stylist-card-safe {
+    width: 100%;
+    max-width: 100%;
+  }
+}

@@ -142,7 +142,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               <div className="mt-2 h-px w-12 bg-gold" />
             </div>
 
-            <div className="grid w-full max-w-full grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="mobile-stylist-list-safe grid w-full max-w-full grid-cols-1 sm:grid-cols-2 gap-5">
               {stylists.map((stylist) => {
                 const s = stylist as Record<string, unknown>;
                 const specialties = Array.isArray(s.specialties)
@@ -155,7 +155,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group box-border flex w-full max-w-full items-center gap-4 overflow-hidden rounded-[24px] border border-beige/70 bg-[#FFFCF7] p-5 shadow-[0_8px_22px_rgba(21,18,15,0.05)] transition-all hover:shadow-lg md:block md:rounded-sm md:bg-offwhite md:p-6 md:text-center md:border-0 md:shadow-none md:hover:shadow-none"
+                    className="mobile-stylist-card-safe group box-border flex w-full max-w-full items-center gap-4 overflow-hidden rounded-[24px] border border-beige/70 bg-[#FFFCF7] p-5 shadow-[0_8px_22px_rgba(21,18,15,0.05)] transition-all hover:shadow-lg md:block md:rounded-sm md:bg-offwhite md:p-6 md:text-center md:border-0 md:shadow-none md:hover:shadow-none"
                   >
                     <div className="h-24 w-24 flex-none overflow-hidden rounded-full md:mx-auto md:mb-3 md:w-20 md:h-20">
                       {s.image_url ? (

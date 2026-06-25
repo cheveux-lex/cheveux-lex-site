@@ -103,43 +103,41 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               ))}
             </div>
 
-            <div className="w-full max-w-full overflow-hidden md:hidden">
-              <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 pb-4" style={{ WebkitOverflowScrolling: "touch" as const }}>
-                {displayItems.slice(0, 5).map((item, i) => (
+            <div className="flex w-full max-w-full gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory px-5 pb-4 md:hidden [-webkit-overflow-scrolling:touch] [touch-action:pan-x]">
+              {displayItems.slice(0, 5).map((item, i) => (
+                <div
+                  key={(item.id as string) || String(item.id as number) || i}
+                  className="flex-none w-[78vw] max-w-[320px] snap-start aspect-[3/4] overflow-hidden rounded-sm relative"
+                >
                   <div
-                    key={(item.id as string) || String(item.id as number) || i}
-                    className="flex-none w-[78vw] max-w-[320px] snap-start aspect-[3/4] overflow-hidden rounded-sm relative"
-                  >
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
-                      }}
+                    className="absolute inset-0"
+                    style={{
+                      background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
+                    }}
+                  />
+                  {item.image_url ? (
+                    <img
+                      src={item.image_url as string}
+                      alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
-                    {item.image_url ? (
-                      <img
-                        src={item.image_url as string}
-                        alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                    ) : null}
-                    <div
-                      className="absolute inset-0 opacity-20"
-                      style={{
-                        backgroundImage: `
-                          radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%)
-                        `,
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-3">
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-gold">
-                        {item.category as string}
-                      </p>
-                    </div>
+                  ) : null}
+                  <div
+                    className="absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage: `
+                        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%)
+                      `,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gold">
+                      {item.category as string}
+                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
             <div className="mt-4 md:hidden">

@@ -28,7 +28,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
   const stylists = stylistsProp ?? (fallbackStylists as unknown as StylistRow[]);
   const displayItems = (galleryProp?.length ? galleryProp : fallbackGallery) as unknown as Record<string, unknown>[];
   return (
-    <section className="bg-cream w-full max-w-full overflow-hidden pt-16 pb-[110px] md:py-20" id="our-work">
+    <section className="bg-cream w-full max-w-full overflow-hidden pt-16 pb-28 md:py-20" id="our-work">
       <div className="mx-auto max-w-7xl px-5 md:px-8 lg:px-12">
         <div className="grid gap-12 md:grid-cols-5">
           <div className="md:col-span-3">
@@ -155,13 +155,10 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-3xl transition-all w-full max-w-full min-w-0 flex items-center gap-4 p-[18px] shadow-[0_8px_22px_rgba(21,18,15,0.05)] overflow-hidden md:flex-col md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0 md:shadow-none"
-                    style={{
-                      backgroundColor: '#FFFCF7',
-                      border: '1px solid rgba(190, 158, 103, 0.20)',
-                    }}
+                    className="group rounded-[24px] transition-all w-full max-w-full min-w-0 flex flex-col items-start p-5 border border-[#E9DED0] shadow-[0_8px_22px_rgba(21,18,15,0.05)] overflow-hidden md:items-center md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0 md:shadow-none"
+                    style={{ backgroundColor: '#FFFCF7' }}
                   >
-                    <div className="w-20 h-20 rounded-full overflow-hidden flex-none md:mx-auto md:mb-3 relative">
+                    <div className="w-24 h-24 rounded-full overflow-hidden flex-none mb-4 md:w-20 md:h-20 md:mx-auto md:mb-3 relative">
                       {s.image_url ? (
                         <img
                           src={s.image_url as string}
@@ -174,14 +171,14 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0 md:text-center">
-                      <h3 className="font-heading text-[24px] leading-tight font-semibold text-charcoal break-words">
+                    <div className="w-full min-w-0 md:text-center">
+                      <h3 className="font-heading text-[26px] leading-tight font-semibold text-charcoal break-words">
                         {s.name as string}
                       </h3>
                       <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.15em] text-gold break-words">
                         {s.role as string}
                       </p>
-                      <p className="mt-1.5 text-[15px] leading-[1.35] text-taupe break-words">
+                      <p className="mt-1.5 text-[16px] leading-[1.4] text-taupe break-words">
                         {specialties.join(" · ")}
                       </p>
                       {instagram && (

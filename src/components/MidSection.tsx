@@ -103,11 +103,11 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               ))}
             </div>
 
-            <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 md:hidden">
+            <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 md:hidden snap-x snap-mandatory">
               {displayItems.slice(0, 5).map((item, i) => (
                 <div
                   key={(item.id as string) || String(item.id as number) || i}
-                  className="relative aspect-[3/4] w-44 flex-shrink-0 overflow-hidden rounded-sm"
+                  className="relative aspect-[3/4] w-[72vw] max-w-[280px] min-w-[220px] flex-shrink-0 overflow-hidden rounded-sm snap-start"
                 >
                   <div
                     className="absolute inset-0"
@@ -174,7 +174,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               <div className="mt-2 h-px w-12 bg-gold" />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {stylists.map((stylist) => {
                 const s = stylist as Record<string, unknown>;
                 const specialties = Array.isArray(s.specialties)
@@ -186,7 +186,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-sm bg-offwhite p-4 text-center transition-all hover:shadow-md"
+                    className="group rounded-sm bg-offwhite p-4 text-center transition-all hover:shadow-md w-full max-w-full"
                   >
                     <div className="mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full">
                       {s.image_url ? (
@@ -204,13 +204,13 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                         />
                       )}
                     </div>
-                    <h3 className="font-heading text-base font-semibold text-charcoal">
+                    <h3 className="font-heading text-base font-semibold text-charcoal break-words">
                       {s.name as string}
                     </h3>
-                    <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold">
+                    <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold break-words">
                       {s.role as string}
                     </p>
-                    <p className="mt-2 text-xs leading-relaxed text-taupe line-clamp-2">
+                    <p className="mt-2 text-xs leading-relaxed text-taupe line-clamp-2 break-words">
                       {specialties.join(" · ")}
                     </p>
                     <div className="mt-3 flex justify-center">

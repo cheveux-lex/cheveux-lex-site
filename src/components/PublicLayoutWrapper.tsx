@@ -20,7 +20,7 @@ export default function PublicLayoutWrapper({
   return (
     <>
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 overflow-x-hidden max-w-full">{children}</main>
       <Footer />
       <MobileStickyCTA />
     </>

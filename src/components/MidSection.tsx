@@ -103,41 +103,43 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               ))}
             </div>
 
-            <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 md:hidden snap-x snap-mandatory">
-              {displayItems.slice(0, 5).map((item, i) => (
-                <div
-                  key={(item.id as string) || String(item.id as number) || i}
-                  className="relative aspect-[3/4] w-[72vw] max-w-[280px] min-w-[220px] flex-shrink-0 overflow-hidden rounded-sm snap-start"
-                >
+            <div className="w-full max-w-full overflow-hidden md:hidden">
+              <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 pb-4" style={{ WebkitOverflowScrolling: "touch" as const }}>
+                {displayItems.slice(0, 5).map((item, i) => (
                   <div
-                    className="absolute inset-0"
-                    style={{
-                      background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
-                    }}
-                  />
-                  {item.image_url ? (
-                    <img
-                      src={item.image_url as string}
-                      alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
-                      className="absolute inset-0 h-full w-full object-cover"
+                    key={(item.id as string) || String(item.id as number) || i}
+                    className="flex-none w-[78vw] max-w-[320px] snap-start aspect-[3/4] overflow-hidden rounded-sm relative"
+                  >
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: categoryGradients[item.category as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
+                      }}
                     />
-                  ) : null}
-                  <div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: `
-                        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%)
-                      `,
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gold">
-                      {item.category as string}
-                    </p>
+                    {item.image_url ? (
+                      <img
+                        src={item.image_url as string}
+                        alt={(item.title as string) || (item.description as string) || (item.alt as string) || "Gallery image"}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    ) : null}
+                    <div
+                      className="absolute inset-0 opacity-20"
+                      style={{
+                        backgroundImage: `
+                          radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%)
+                        `,
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-gold">
+                        {item.category as string}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <div className="mt-4 md:hidden">
@@ -183,12 +185,13 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                     ? [s.specialty as string]
                     : [];
                 const instagram = (s.instagram as string) || (s.instagram_url as string) || "";
+                const initial = (s.name as string)?.[0] || "?";
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-sm bg-offwhite p-4 text-center transition-all hover:shadow-md w-full max-w-full"
+                    className="group rounded-xl bg-white/70 border border-[#E9DED0] transition-all hover:shadow-md w-full max-w-full flex items-center gap-4 p-5 md:flex-col md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0"
                   >
-                    <div className="mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full">
+                    <div className="w-20 h-20 rounded-full overflow-hidden flex-none md:mx-auto md:mb-3 relative">
                       {s.image_url ? (
                         <img
                           src={s.image_url as string}
@@ -196,46 +199,45 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
-                        <div
-                          className="h-full w-full transition-transform duration-500 group-hover:scale-105"
-                          style={{
-                            background: stylistGradients[s.name as string] || "linear-gradient(135deg, #D8CEC2, #A89C8E)",
-                          }}
-                        />
+                        <div className="h-full w-full flex items-center justify-center bg-beige/30 text-gold font-heading text-lg font-semibold">
+                          {initial}
+                        </div>
                       )}
                     </div>
-                    <h3 className="font-heading text-base font-semibold text-charcoal break-words">
-                      {s.name as string}
-                    </h3>
-                    <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold break-words">
-                      {s.role as string}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-taupe line-clamp-2 break-words">
-                      {specialties.join(" · ")}
-                    </p>
-                    <div className="mt-3 flex justify-center">
-                      <a
-                        href={instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 items-center justify-center rounded-full border border-beige text-taupe transition-colors hover:border-gold hover:text-gold"
-                        aria-label={`${s.name as string} on Instagram`}
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                    <div className="flex-1 min-w-0 md:text-center">
+                      <h3 className="font-heading text-base font-semibold text-charcoal break-words">
+                        {s.name as string}
+                      </h3>
+                      <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold break-words">
+                        {s.role as string}
+                      </p>
+                      <p className="mt-2 text-xs leading-relaxed text-taupe line-clamp-2 break-words">
+                        {specialties.join(" · ")}
+                      </p>
+                      <div className="mt-3 flex md:justify-center">
+                        <a
+                          href={instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-beige text-taupe transition-colors hover:border-gold hover:text-gold"
+                          aria-label={`${s.name as string} on Instagram`}
                         >
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
-                      </a>
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                          </svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 );

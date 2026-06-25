@@ -142,7 +142,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               <div className="mt-2 h-px w-12 bg-gold" />
             </div>
 
-            <div className="mobile-stylist-list-safe grid w-full max-w-full grid-cols-1 sm:grid-cols-2 gap-5">
+            {/* <div className="mobile-stylist-list-safe grid w-full max-w-full grid-cols-1 sm:grid-cols-2 gap-5">
               {stylists.map((stylist) => {
                 const s = stylist as Record<string, unknown>;
                 const specialties = Array.isArray(s.specialties)
@@ -211,6 +211,10 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                   </div>
                 );
               })}
+            </div> */}
+
+            <div className="bg-red-500 p-2">
+
             </div>
 
             <div className="mt-5 text-center">

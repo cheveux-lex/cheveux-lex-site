@@ -155,9 +155,9 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="mobile-stylist-card-safe group box-border flex w-full max-w-full items-center gap-4 overflow-hidden rounded-[24px] border border-beige/70 bg-[#FFFCF7] p-5 shadow-[0_8px_22px_rgba(21,18,15,0.05)] transition-all hover:shadow-lg md:block md:rounded-sm md:bg-offwhite md:p-6 md:text-center md:border-0 md:shadow-none md:hover:shadow-none"
+                    className="mobile-stylist-card-safe group box-border flex w-[88%] max-w-[360px] mx-auto items-center gap-3 overflow-hidden rounded-[24px] border border-beige/70 bg-[#FFFCF7] p-4 shadow-[0_8px_22px_rgba(21,18,15,0.05)] transition-all hover:shadow-lg md:w-full md:max-w-full md:mx-0 md:block md:rounded-sm md:bg-offwhite md:p-6 md:text-center md:border-0 md:shadow-none md:hover:shadow-none"
                   >
-                    <div className="h-24 w-24 flex-none overflow-hidden rounded-full md:mx-auto md:mb-3 md:w-20 md:h-20">
+                    <div className="h-20 w-20 flex-none overflow-hidden rounded-full md:mx-auto md:mb-3 md:w-20 md:h-20">
                       {s.image_url ? (
                         <img
                           src={s.image_url as string}
@@ -171,13 +171,13 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                       )}
                     </div>
                     <div className="min-w-0 flex-1 md:text-center">
-                      <h3 className="font-heading text-[26px] leading-tight font-semibold text-charcoal break-words">
+                      <h3 className="font-heading text-[24px] leading-tight font-semibold text-charcoal break-words">
                         {s.name as string}
                       </h3>
                       <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.15em] text-gold break-words">
                         {s.role as string}
                       </p>
-                      <p className="mt-1.5 text-[16px] leading-[1.4] text-taupe break-words">
+                      <p className="mt-1.5 text-[15px] leading-[1.4] text-taupe break-words">
                         {specialties.join(" · ")}
                       </p>
                       {instagram && (

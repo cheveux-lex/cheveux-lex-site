@@ -28,7 +28,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
   const stylists = stylistsProp ?? (fallbackStylists as unknown as StylistRow[]);
   const displayItems = (galleryProp?.length ? galleryProp : fallbackGallery) as unknown as Record<string, unknown>[];
   return (
-    <section className="bg-cream py-16 md:py-20" id="our-work">
+    <section className="bg-cream pt-16 pb-24 md:py-20" id="our-work">
       <div className="mx-auto max-w-7xl px-5 md:px-8 lg:px-12">
         <div className="grid gap-12 md:grid-cols-5">
           <div className="md:col-span-3">
@@ -142,7 +142,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
               <div className="mt-2 h-px w-12 bg-gold" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {stylists.map((stylist) => {
                 const s = stylist as Record<string, unknown>;
                 const specialties = Array.isArray(s.specialties)
@@ -155,7 +155,11 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-xl bg-white/70 border border-[#E9DED0] transition-all hover:shadow-md w-full max-w-full flex items-center gap-4 p-5 md:flex-col md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0"
+                    className="group rounded-2xl transition-all w-full max-w-full flex items-center gap-4 p-5 shadow-sm md:flex-col md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.72)',
+                      border: '1px solid rgba(190, 158, 103, 0.18)',
+                    }}
                   >
                     <div className="w-20 h-20 rounded-full overflow-hidden flex-none md:mx-auto md:mb-3 relative">
                       {s.image_url ? (
@@ -171,39 +175,42 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                       )}
                     </div>
                     <div className="flex-1 min-w-0 md:text-center">
-                      <h3 className="font-heading text-base font-semibold text-charcoal break-words">
+                      <h3 className="font-heading text-[22px] leading-tight font-semibold text-charcoal break-words">
                         {s.name as string}
                       </h3>
-                      <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gold break-words">
+                      <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.15em] text-gold break-words">
                         {s.role as string}
                       </p>
-                      <p className="mt-2 text-xs leading-relaxed text-taupe line-clamp-2 break-words">
+                      <p className="mt-1.5 text-[15px] leading-relaxed text-taupe break-words">
                         {specialties.join(" · ")}
                       </p>
-                      <div className="mt-3 flex md:justify-center">
-                        <a
-                          href={instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex h-7 w-7 items-center justify-center rounded-full border border-beige text-taupe transition-colors hover:border-gold hover:text-gold"
-                          aria-label={`${s.name as string} on Instagram`}
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                      {instagram && (
+                        <div className="mt-2">
+                          <a
+                            href={instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border text-taupe transition-colors hover:border-gold hover:text-gold"
+                            style={{ borderColor: 'rgba(190, 158, 103, 0.25)' }}
+                            aria-label={`${s.name as string} on Instagram`}
                           >
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                          </svg>
-                        </a>
-                      </div>
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

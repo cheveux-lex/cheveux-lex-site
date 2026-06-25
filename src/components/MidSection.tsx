@@ -155,7 +155,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-[24px] transition-all w-full max-w-full min-w-0 flex flex-col items-start p-5 border border-[#E9DED0] shadow-[0_8px_22px_rgba(21,18,15,0.05)] overflow-hidden md:items-center md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0 md:shadow-none"
+                    className="group rounded-[24px] transition-all w-[calc(100vw-40px)] max-w-full mx-auto min-w-0 flex flex-col items-start p-5 border border-[#E9DED0] shadow-[0_8px_22px_rgba(21,18,15,0.05)] overflow-hidden md:w-full md:max-w-full md:mx-0 md:items-center md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0 md:shadow-none"
                     style={{ backgroundColor: '#FFFCF7' }}
                   >
                     <div className="w-24 h-24 rounded-full overflow-hidden flex-none mb-4 md:w-20 md:h-20 md:mx-auto md:mb-3 relative">

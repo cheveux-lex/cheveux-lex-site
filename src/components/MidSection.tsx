@@ -155,10 +155,9 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                 return (
                   <div
                     key={s.id as string}
-                    className="group rounded-[24px] transition-all w-[calc(100vw-40px)] max-w-full mx-auto min-w-0 flex flex-col items-start p-5 border border-[#E9DED0] shadow-[0_8px_22px_rgba(21,18,15,0.05)] overflow-hidden md:w-full md:max-w-full md:mx-0 md:items-center md:text-center md:p-4 md:rounded-sm md:bg-offwhite md:border-0 md:shadow-none"
-                    style={{ backgroundColor: '#FFFCF7' }}
+                    className="group mx-auto box-border flex w-[calc(100vw-48px)] max-w-[calc(100vw-48px)] items-center gap-4 overflow-hidden rounded-[24px] border border-beige/70 bg-[#FFFCF7] p-5 shadow-[0_8px_22px_rgba(21,18,15,0.05)] transition-all hover:shadow-lg md:block md:w-full md:max-w-full md:rounded-sm md:bg-offwhite md:p-6 md:text-center md:border-0 md:shadow-none md:hover:shadow-none"
                   >
-                    <div className="w-24 h-24 rounded-full overflow-hidden flex-none mb-4 md:w-20 md:h-20 md:mx-auto md:mb-3 relative">
+                    <div className="h-24 w-24 flex-none overflow-hidden rounded-full md:mx-auto md:mb-3 md:w-20 md:h-20">
                       {s.image_url ? (
                         <img
                           src={s.image_url as string}
@@ -171,7 +170,7 @@ export default function MidSection({ stylists: stylistsProp, galleryItems: galle
                         </div>
                       )}
                     </div>
-                    <div className="w-full min-w-0 md:text-center">
+                    <div className="min-w-0 flex-1 md:text-center">
                       <h3 className="font-heading text-[26px] leading-tight font-semibold text-charcoal break-words">
                         {s.name as string}
                       </h3>
